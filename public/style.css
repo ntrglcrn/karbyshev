@@ -481,6 +481,30 @@ body.fade-out {
       font-size: clamp(28px, 6vw, 48px);
       margin-top: var(--spacing-mobile);
   }
+
+  .slider-container {
+      overflow: visible;
+      margin: 0 -20px;
+      padding: 0 20px;
+  }
+
+  .slider-item {
+      width: 280px;
+      margin-right: 16px;
+      transform: scale(1);
+      opacity: 1;
+  }
+
+  .slider-controls {
+      position: relative;
+      margin-top: 24px;
+      z-index: 10;
+  }
+
+  .slider-controls button {
+      width: 40px;
+      height: 40px;
+  }
 }
 
     
