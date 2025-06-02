@@ -394,9 +394,10 @@ body.fade-out {
 /* Slider styles */
 .slider-container {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */ /* Hide overflowing items */
   margin: 0 -20px;
   padding: 0 20px;
+  display: block;
 }
 
 .slider-wrapper {
