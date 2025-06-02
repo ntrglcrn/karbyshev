@@ -757,6 +757,11 @@ footer .footer .nav a:hover {
   footer .footer .nav a {
     font-size: 15px;
   }
+
+  .hire-me-text {
+     font-size: clamp(50px, 15vw, 150px); /* Adjust font size for smaller screens */
+     height: auto; /* Allow height to adjust based on content and font size */
+  }
 }
 
 @media (max-width: 480px) {
@@ -861,4 +866,110 @@ body.dark-background.cursor-hover .custom-cursor {
 .fade-in-up.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Skills & Services section styles */
+.full-width-section {
+  width: 100vw;
+  background-color: #0C0C0C;
+  height: 550px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.full-width-section:hover {
+  background-color: #D7D7D7;
+}
+
+.skills-section .container {
+  /* Removed */
+}
+
+.skills-title {
+  /* Removed */
+}
+
+.skills-grid {
+  /* Removed */
+}
+
+.skill-card {
+  /* Removed */
+}
+
+.skill-card:hover {
+  /* Removed */
+}
+
+.skill-icon {
+  /* Removed */
+}
+
+.skill-title {
+  /* Removed */
+}
+
+.skill-desc {
+  /* Removed */
+}
+
+.hire-me-text {
+  color: #FFF;
+  text-align: center;
+  font-family: 'ABC Favorit Mono', monospace;
+  font-size: 239px;
+  font-style: normal;
+  font-weight: 350;
+  line-height: normal;
+  text-transform: uppercase;
+  height: 320px; /* As per screenshot */
+  display: flex; /* To center text vertically within its own div if needed */
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease; /* Add transition for smooth color change */
+}
+
+.full-width-section:hover .hire-me-text {
+  color: #272727;
+}
+
+.hire-me-link {
+  display: flex; /* Use flexbox to center the text vertically */
+  width: 100%; /* Make the link fill the width of the section */
+  height: 100%; /* Make the link fill the height of the section */
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Inherit text color from hire-me-text */
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
+}
+
+@media (max-width: 1024px) {
+  .skills-grid {
+    /* Removed */
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    /* Removed */
+  }
+  
+  .full-width-section {
+    height: auto;
+    padding: 40px 0;
+  }
+
+  .hire-me-text {
+     font-size: clamp(50px, 15vw, 150px); /* Adjust font size for smaller screens */
+     height: auto; /* Allow height to adjust based on content and font size */
+  }
 }
