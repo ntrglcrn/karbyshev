@@ -80,13 +80,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const sliderItems = document.querySelectorAll('.slider-item');
 
   if (sliderWrapper && prevButton && nextButton && sliderItems.length > 0) {
-    let currentSlide = 0;
     let isDragging = false;
     let startPos = 0;
     let currentTranslate = 0;
     let prevTranslate = 0;
     let animationID = 0;
     let currentIndex = 0;
+    let slideWidth = 0;
+    let slidesPerView = 3; // Default for desktop
+
+    function updateSlidesPerView() {
+      if (window.innerWidth <= 768) {
+        slidesPerView = 1;
+      } else if (window.innerWidth <= 1200) {
+        slidesPerView = 2;
+      } else {
+        slidesPerView = 3;
+      }
+      slideWidth = sliderItems[0].offsetWidth + parseInt(getComputedStyle(sliderItems[0]).marginRight);
+    }
+
+    // Update slides per view on load and resize
+    updateSlidesPerView();
+    window.addEventListener('resize', updateSlidesPerView);
 
     // Touch events
     sliderWrapper.addEventListener('touchstart', touchStart);
@@ -130,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Determine if we should move to next/prev slide
       if (Math.abs(movedBy) > 100) {
         if (movedBy < 0) {
-          currentIndex = Math.min(currentIndex + 1, sliderItems.length - 1);
+          currentIndex = Math.min(currentIndex + 1, sliderItems.length - slidesPerView);
         } else {
           currentIndex = Math.max(currentIndex - 1, 0);
         }
@@ -154,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setPositionByIndex() {
-      const slideWidth = sliderItems[0].offsetWidth;
       currentTranslate = currentIndex * -slideWidth;
       prevTranslate = currentTranslate;
       setSliderPosition();
@@ -170,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     nextButton.addEventListener('click', () => {
-      goToSlide(Math.min(currentIndex + 1, sliderItems.length - 1));
+      goToSlide(Math.min(currentIndex + 1, sliderItems.length - slidesPerView));
     });
 
     // Initialize slider

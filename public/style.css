@@ -342,6 +342,7 @@ body.fade-out {
 .projects {
   margin-top: var(--spacing-desktop);
   position: relative;
+  overflow: hidden;
 }
 
 .projects-title {
@@ -352,15 +353,7 @@ body.fade-out {
   text-transform: uppercase;
 }
 
-/* Desktop Grid Layout Styles */
-.projects-grid {
-    display: none; /* Hidden by default, shown on desktop */
-    grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
-    gap: 32px;
-    margin-top: var(--spacing-desktop);
-}
-
-/* Card styles - applied to cards in both grid and slider */
+/* Card styles */
 .card { 
     background: #f5f5f7;
     border-radius: 18px;
@@ -402,7 +395,6 @@ body.fade-out {
 .slider-container {
   position: relative;
   overflow: hidden;
-  display: none;
   margin: 0 -20px;
   padding: 0 20px;
 }
@@ -411,12 +403,12 @@ body.fade-out {
   display: flex;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
+  gap: 24px;
 }
 
 .slider-item {
   flex: 0 0 auto;
-  width: 100%;
-  padding: 0 10px;
+  width: calc(33.333% - 16px);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -462,18 +454,14 @@ body.fade-out {
 
 /* Media Queries */
 @media (max-width: 1200px) {
-  .projects-grid {
-    display: none;
-  }
-  .slider-container {
-    display: block;
-  }
   .slider-item {
-    width: 85%;
+    width: calc(50% - 12px);
   }
+  
   .slider-controls {
     padding: 0 10px;
   }
+  
   .slider-controls button {
     width: 40px;
     height: 40px;
@@ -492,7 +480,11 @@ body.fade-out {
   }
   
   .slider-item {
-    width: 90%;
+    width: calc(100% - 32px);
+  }
+  
+  .slider-wrapper {
+    gap: 16px;
   }
   
   .slider-controls button {
