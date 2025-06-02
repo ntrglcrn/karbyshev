@@ -496,14 +496,7 @@ body.fade-out {
   }
 
   .slider-controls {
-      position: relative;
-      margin-top: 24px;
-      z-index: 10;
-  }
-
-  .slider-controls button {
-      width: 40px;
-      height: 40px;
+      display: none; /* Hide controls on mobile */
   }
 }
 
@@ -748,6 +741,21 @@ footer .footer .nav a:hover {
     height: 100%;
     width: auto;
     max-width: 100%; /* Ensure image doesn't overflow container */
+  }
+
+  footer .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  footer .footer .nav {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  footer .footer .nav a {
+    font-size: 15px;
   }
 }
 
