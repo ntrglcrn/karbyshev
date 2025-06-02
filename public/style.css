@@ -590,7 +590,7 @@ footer {
   padding: var(--spacing-desktop) var(--content-padding-desktop);
   box-sizing: border-box;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 0; /* Remove top margin */
 }
 
 footer .footer {
@@ -874,7 +874,7 @@ body.dark-background.cursor-hover .custom-cursor {
   width: 100vw;
   background-color: #0C0C0C;
   height: 550px; /* Rounded from 550px (already integer) */
-  margin: 0;
+  margin: 0 0 0px 0; /* Ensure bottom margin is 0 */
   padding: 0;
   position: relative;
   left: 50%;
