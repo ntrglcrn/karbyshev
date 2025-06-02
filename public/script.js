@@ -80,33 +80,116 @@ document.addEventListener('DOMContentLoaded', () => {
   const sliderItems = document.querySelectorAll('.slider-item');
 
   if (sliderWrapper && prevButton && nextButton && sliderItems.length > 0) {
-    const slideWidth = sliderItems[0].offsetWidth + parseInt(getComputedStyle(sliderItems[0]).marginRight); // Width including margin
-    let currentSlide = 0;
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID = 0;
+    let currentIndex = 0;
+    let slideWidth = 0;
+    let slidesPerView = 3; // Default for desktop
+
+    function updateSlidesPerView() {
+      if (window.innerWidth <= 768) {
+        slidesPerView = 1;
+      } else if (window.innerWidth <= 1200) {
+        slidesPerView = 2;
+      } else {
+        slidesPerView = 3;
+      }
+      slideWidth = sliderItems[0].offsetWidth + parseInt(getComputedStyle(sliderItems[0]).marginRight);
+    }
+
+    // Update slides per view on load and resize
+    updateSlidesPerView();
+    window.addEventListener('resize', updateSlidesPerView);
+
+    // Touch events
+    sliderWrapper.addEventListener('touchstart', touchStart);
+    sliderWrapper.addEventListener('touchmove', touchMove);
+    sliderWrapper.addEventListener('touchend', touchEnd);
+
+    // Mouse events
+    sliderWrapper.addEventListener('mousedown', touchStart);
+    sliderWrapper.addEventListener('mousemove', touchMove);
+    sliderWrapper.addEventListener('mouseup', touchEnd);
+    sliderWrapper.addEventListener('mouseleave', touchEnd);
+
+    // Disable context menu
+    window.oncontextmenu = function(event) {
+      if (event.target.closest('.slider-wrapper')) {
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+      }
+    }
+
+    function touchStart(event) {
+      isDragging = true;
+      startPos = getPositionX(event);
+      animationID = requestAnimationFrame(animation);
+      sliderWrapper.style.cursor = 'grabbing';
+    }
+
+    function touchMove(event) {
+      if (isDragging) {
+        const currentPosition = getPositionX(event);
+        currentTranslate = prevTranslate + currentPosition - startPos;
+      }
+    }
+
+    function touchEnd() {
+      isDragging = false;
+      cancelAnimationFrame(animationID);
+      const movedBy = currentTranslate - prevTranslate;
+      
+      // Determine if we should move to next/prev slide
+      if (Math.abs(movedBy) > 100) {
+        if (movedBy < 0) {
+          currentIndex = Math.min(currentIndex + 1, sliderItems.length - slidesPerView);
+        } else {
+          currentIndex = Math.max(currentIndex - 1, 0);
+        }
+      }
+      
+      setPositionByIndex();
+      sliderWrapper.style.cursor = 'grab';
+    }
+
+    function getPositionX(event) {
+      return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    }
+
+    function animation() {
+      setSliderPosition();
+      if (isDragging) requestAnimationFrame(animation);
+    }
+
+    function setSliderPosition() {
+      sliderWrapper.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    function setPositionByIndex() {
+      currentTranslate = currentIndex * -slideWidth;
+      prevTranslate = currentTranslate;
+      setSliderPosition();
+    }
 
     function goToSlide(slideIndex) {
-      if (slideIndex < 0) {
-        currentSlide = sliderItems.length - 1; // Go to last slide if going before first
-      } else if (slideIndex >= sliderItems.length) {
-        currentSlide = 0; // Go to first slide if going after last
-      } else {
-        currentSlide = slideIndex;
-      }
-      const offset = -currentSlide * slideWidth;
-      sliderWrapper.style.transform = `translateX(${offset}px)`;
+      currentIndex = slideIndex;
+      setPositionByIndex();
     }
 
     prevButton.addEventListener('click', () => {
-      goToSlide(currentSlide - 1);
+      goToSlide(Math.max(currentIndex - 1, 0));
     });
 
     nextButton.addEventListener('click', () => {
-      goToSlide(currentSlide + 1);
+      goToSlide(Math.min(currentIndex + 1, sliderItems.length - slidesPerView));
     });
 
-    // Optional: Go to next slide automatically (autoplay)
-    // setInterval(() => {
-    //   goToSlide(currentSlide + 1);
-    // }, 5000); // Change slide every 5 seconds
+    // Initialize slider
+    setPositionByIndex();
   }
   // --- Конец кода для слайдера Featured Projects ---
 
