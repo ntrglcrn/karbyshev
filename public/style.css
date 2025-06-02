@@ -7,7 +7,7 @@
 
 :root {
   --container-width: 100%;
-  --base-font-size: 18.75px; /* Base font size */
+  --base-font-size: 19px; /* Rounded from 18.75px */
   --heading-scale-desktop: 125px; /* H1 size on desktop */
   --heading-scale-2k: 200px; /* H1 size on 2k+ */
   --heading-scale-tablet: clamp(60px, 10vw, 125px); /* H1 size on tablet */
@@ -81,7 +81,7 @@ body.fade-out {
 }
 
 .logo {
-  font-size: 18.75px;
+  font-size: 19px; /* Rounded from 18.75px */
   font-weight: 350;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -90,7 +90,7 @@ body.fade-out {
 .header .nav {
   /* display: flex;  Show desktop nav by default - This will be handled by media queries */
   gap: 32px;
-  font-size: 18.75px;
+  font-size: 19px; /* Rounded from 18.75px */
   font-weight: 350;
 }
 
@@ -178,7 +178,7 @@ body.fade-out {
 
 .mobile-menu .nav a {
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 20px; /* Rounded from 1.2rem (1.2 * 16px base = 19.2px) */
   font-weight: normal;
   transform: translateX(20px); /* Start slightly offset */
   transition: transform 0.3s ease-in-out;
@@ -254,7 +254,7 @@ body.fade-out {
 .main-heading {
   display: block;
   width: 100%;
-  font-size: clamp(40px, 8vw, 100px); /* адаптивный размер вместо переменной */
+  font-size: clamp(40px, 8vw, 100px); /* Kept clamp as it handles responsiveness */
   font-family: inherit;
   font-weight: 350;
   margin: var(--spacing-desktop) 0;
@@ -276,7 +276,7 @@ body.fade-out {
   grid-template-columns: repeat(12, 1fr); /* Using the 12-column system directly */
   gap: 0; /* Remove default gap */
   margin-bottom: var(--spacing-desktop); /* Use spacing variable */
-  font-size: var(--base-font-size);
+  font-size: 19px; /* Rounded from var(--base-font-size) */
   grid-column: span 12; /* Make grid-info span all 12 columns of the container */
 }
 
@@ -303,7 +303,7 @@ body.fade-out {
 
 /* Specific text alignment for the last two blocks */
 .description {
-  font-size: var(--base-font-size);
+  font-size: 19px; /* Rounded from var(--base-font-size) */
   margin: var(--spacing-desktop) 0; /* Use spacing variable */
   padding-top: var(--spacing-desktop);
   padding-bottom: var(--spacing-desktop);
@@ -325,14 +325,14 @@ body.fade-out {
 }
 
 .experience-number {
-  font-size: clamp(3.125rem, 10vw, 7.5rem);
+  font-size: clamp(50px, 10vw, 120px); /* Rounded clamp values */
   font-weight: 350;
   color: #111;
   text-transform: uppercase;
 }
 
 .experience-label {
-  font-size: 18.75px;
+  font-size: 19px; /* Rounded from 18.75px */
   color: #888;
   margin-top: 8px;
   font-weight: 350;
@@ -341,10 +341,11 @@ body.fade-out {
 /* FeaturedProjects section styles */
 .projects {
   margin-top: var(--spacing-desktop);
+  margin-bottom: 60px; /* Added margin after projects */
 }
 
 .projects-title {
-  font-size: 57.5px;
+  font-size: 58px; /* Rounded from 57.5px */
   font-weight: 350;
   margin-bottom: var(--spacing-desktop);
   letter-spacing: 0.01em;
@@ -378,14 +379,14 @@ body.fade-out {
 }
 
 .card-title {
-  font-size: 20px;
+  font-size: 20px; /* Rounded from 20px (already integer) */
   font-weight: 350;
   margin-bottom: 12px;
   letter-spacing: -0.05em;
 }
 
 .card-desc {
-  font-size: 20px;
+  font-size: 20px; /* Rounded from 20px (already integer) */
   font-weight: 350;
   color: #888;
   margin-top: auto;
@@ -435,7 +436,7 @@ body.fade-out {
   width: 40px; /* Button size */
   height: 40px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 20px; /* Rounded from 20px (already integer) */
   color: #333; /* Dark text color */
   display: flex;
   justify-content: center;
@@ -466,19 +467,19 @@ body.fade-out {
   .slider-controls button {
       width: 30px;
       height: 30px;
-      font-size: 16px;
+      font-size: 16px; /* Rounded from 16px (already integer) */
   }
 }
 
 /* Отдельный блок для main-heading и projects-title */
 @media (max-width: 768px) {
   .main-heading {
-      font-size: clamp(32px, 8vw, 60px);
+      font-size: clamp(32px, 8vw, 60px); /* Kept clamp */
       margin: var(--spacing-mobile) 0;
   }
 
   .projects-title {
-      font-size: clamp(28px, 6vw, 48px);
+      font-size: clamp(28px, 6vw, 48px); /* Kept clamp */
       margin-top: var(--spacing-mobile);
   }
 
@@ -523,7 +524,7 @@ body.fade-out {
   gap: 24px;
 }
 .process-title {
-  font-size: 45px;
+  font-size: 45px; /* Rounded from 45px (already integer) */
   font-family: 'ABC Favorit Mono', monospace;
   font-weight: 350;
   margin-bottom: 0;
@@ -549,7 +550,7 @@ body.fade-out {
   justify-content: flex-start;
 }
 .step-label {
-  font-size: 13px;
+  font-size: 13px; /* Rounded from 13px (already integer) */
   color: #888;
   font-family: 'ABC Favorit Mono', monospace;
   font-weight: 350;
@@ -567,7 +568,7 @@ body.fade-out {
   object-fit: contain;
 }
 .step-desc-mono {
-  font-size: 13px;
+  font-size: 13px; /* Rounded from 13px (already integer) */
   color: #111;
   font-family: 'ABC Favorit Mono', monospace;
   font-weight: 350;
@@ -602,7 +603,7 @@ footer .footer {
 }
 
 footer .footer img {
-  width: clamp(80px, 8vw, 120px);
+  width: clamp(80px, 8vw, 120px); /* Kept clamp */
   height: auto;
 }
 
@@ -617,7 +618,7 @@ footer .footer .nav {
 footer .footer .nav a {
   text-decoration: none;
   color: #fff;
-  font-size: var(--base-font-size);
+  font-size: 19px; /* Rounded from var(--base-font-size) */
   transition: color 0.3s ease;
 }
 
@@ -682,7 +683,7 @@ footer .footer .nav a:hover {
   :root {
     --content-padding: var(--content-padding-mobile);
     --spacing-unit: 24px;
-    --heading-scale: clamp(30px, 10vw, 50px); /* Adjusted for better fit on mobile */
+    --heading-scale: clamp(30px, 10vw, 50px); /* Kept clamp */
   }
   
   /* Show burger menu and hide desktop nav on mobile */
@@ -755,7 +756,12 @@ footer .footer .nav a:hover {
   }
 
   footer .footer .nav a {
-    font-size: 15px;
+    font-size: 15px; /* Rounded from 15px (already integer) */
+  }
+
+  .hire-me-text {
+     font-size: clamp(50px, 15vw, 150px); /* Kept clamp */
+     height: auto;
   }
 }
 
@@ -763,7 +769,7 @@ footer .footer .nav a:hover {
   :root {
     --content-padding: var(--content-padding-mobile);
     --spacing-unit: 16px;
-    --heading-scale: clamp(25px, 8vw, 40px); /* Adjusted for smaller mobile screens */
+    --heading-scale: clamp(25px, 8vw, 40px); /* Kept clamp */
   }
   
    /* Adjust hero section height on small mobile */
@@ -815,8 +821,8 @@ footer .footer .nav a:hover {
   position: fixed;
   top: 0;
   left: 0;
-  width: 27px;
-  height: 27px;
+  width: 27px; /* Rounded from 27px (already integer) */
+  height: 27px; /* Rounded from 27px (already integer) */
   border-radius: 50%;
   background-color: white; /* Changed to white for mix-blend-mode */
   pointer-events: none;
@@ -828,15 +834,15 @@ footer .footer .nav a:hover {
 
 /* Стили при наведении на интерактивные элементы */
 body.cursor-hover .custom-cursor {
-  width: 80px; /* Увеличиваем размер до 80px при наведении (40px радиус) */
-  height: 80px; /* Увеличиваем размер до 80px при наведении (40px радиус) */
+  width: 80px; /* Rounded from 80px (already integer) */
+  height: 80px; /* Rounded from 80px (already integer) */
   background-color: #888; /* Изменяем цвет при наведении */
 }
 
 /* Стиль для курсора при зажатии кнопки мыши */
 body.cursor-pressed .custom-cursor {
-    width: 20px; /* Уменьшенный размер при зажатии (примерно 1/4 от 80px) */
-    height: 20px; /* Уменьшенный размер при зажатии */
+    width: 20px; /* Rounded from 20px (already integer) */
+    height: 20px; /* Rounded from 20px (already integer) */
 }
 
 /* Стиль для курсора на темном фоне (добавьте класс dark-background к элементам с темным фоном) */
@@ -854,11 +860,85 @@ body.dark-background.cursor-hover .custom-cursor {
 /* Add styles for fade-in/slide-up animation */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(20px); /* Rounded from 20px (already integer) */
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .fade-in-up.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Skills & Services section styles */
+.full-width-section {
+  width: 100vw;
+  background-color: #0C0C0C;
+  height: 550px; /* Rounded from 550px (already integer) */
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.full-width-section:hover {
+  background-color: #D7D7D7;
+}
+
+.hire-me-text {
+  color: #FFF;
+  text-align: center;
+  font-family: 'ABC Favorit Mono', monospace;
+  font-size: 239px; /* Rounded from 239px (already integer) */
+  font-style: normal;
+  font-weight: 350;
+  line-height: normal;
+  text-transform: uppercase;
+  height: 320px; /* Rounded from 320px (already integer) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.full-width-section:hover .hire-me-text {
+  color: #272727;
+}
+
+.hire-me-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  /* .skills-grid { Removed }*/
+}
+
+@media (max-width: 768px) {
+  /* .skills-grid { Removed }*/
+  
+  .full-width-section {
+    height: auto;
+    padding: 40px 0; /* Rounded from 40px and 0 (already integers) */
+  }
+
+  .hire-me-text {
+     font-size: clamp(50px, 15vw, 150px); /* Kept clamp */
+     height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Added missing media query closing brace */
 }
