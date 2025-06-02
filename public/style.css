@@ -1,0 +1,839 @@
+@font-face {
+  font-family: 'ABC Favorit Mono';
+  src: url('fonts/abc-favorit-mono-book.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --container-width: 100%;
+  --base-font-size: 18.75px; /* Base font size */
+  --heading-scale-desktop: 125px; /* H1 size on desktop */
+  --heading-scale-2k: 200px; /* H1 size on 2k+ */
+  --heading-scale-tablet: clamp(60px, 10vw, 125px); /* H1 size on tablet */
+  --heading-scale-mobile: clamp(40px, 12vw, 60px); /* H1 size on mobile */
+  
+  --spacing-desktop: 60px; /* Default spacing between blocks */
+  --spacing-tablet: 40px; /* Spacing on tablet */
+  --spacing-mobile: 30px; /* Spacing on mobile */
+  --spacing-mobile-small: 20px; /* Spacing on small mobile */
+
+  --content-padding-desktop: 4rem; /* Desktop horizontal padding */
+  --content-padding-tablet: 32px; /* Tablet horizontal padding */
+  --content-padding-mobile: 16px; /* Mobile horizontal padding */
+  --heading-scale: var(--heading-scale-desktop);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: var(--base-font-size);
+}
+
+body {
+  cursor: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'ABC Favorit Mono', monospace;
+  background: #fff;
+  color: #111;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+  transition: opacity 0.5s ease-in-out;
+
+  /* Добавляем Flexbox для 100% высоты */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body.fade-out {
+  opacity: 0;
+}
+
+.container {
+  width: var(--container-width);
+  margin: 0;
+  padding: 0 var(--content-padding-desktop);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 32px; /* Default grid gap */
+}
+
+/* Resetting default margin/padding for direct children of container */
+.container > * {
+  grid-column: span 12; /* Make direct children span all 12 columns by default */
+  margin: 0; /* Reset margins */
+  padding: 0; /* Reset paddings */
+}
+
+.content-wrap {
+  flex-grow: 1; /* Растягивается, занимая доступное вертикальное пространство */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0 0 0;
+  grid-column: span 12;
+}
+
+.logo {
+  font-size: 18.75px;
+  font-weight: 350;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.header .nav {
+  /* display: flex;  Show desktop nav by default - This will be handled by media queries */
+  gap: 32px;
+  font-size: 18.75px;
+  font-weight: 350;
+}
+
+.header .desktop-nav {
+    display: flex; /* Show desktop nav by default */
+}
+
+.header .mobile-nav {
+    display: none; /* Hide mobile nav by default */
+}
+
+.header .nav a {
+  color: #111;
+  text-decoration: none;
+  letter-spacing: -0.05em;
+  transition: color 0.2s;
+}
+
+.header .nav a:hover {
+  color: #888;
+}
+
+.burger-menu-toggle {
+  display: none; /* Hidden by default on desktop and tablet */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10000;
+}
+
+.burger-icon {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #111;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.burger-icon::before, .burger-icon::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #111;
+  position: absolute;
+  transition: transform 0.3s ease;
+}
+
+.burger-icon::before { top: -8px; }
+.burger-icon::after { top: 8px; }
+
+.mobile-menu {
+  display: none; /* Hidden by default on desktop and tablet */
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #000;
+  z-index: 9999;
+  padding-top: 60px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+}
+
+.mobile-menu.is-open {
+  transform: translateX(0);
+  display: block !important; /* Ensure menu is shown when open */
+}
+
+.mobile-menu .nav {
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  opacity: 0; /* Hide links by default */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.mobile-menu.is-open .nav {
+  opacity: 1; /* Show links when menu is open */
+}
+
+.mobile-menu .nav a {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: normal;
+  transform: translateX(20px); /* Start slightly offset */
+  transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu.is-open .nav a {
+  transform: translateX(0); /* Move to original position when menu is open */
+}
+
+/* Animation for burger icon to X */
+.burger-menu-toggle.is-open .burger-icon {
+  background-color: transparent;
+}
+
+.burger-menu-toggle.is-open .burger-icon::before {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger-menu-toggle.is-open .burger-icon::after {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.hero-rect {
+  width: 100%;
+  height: 60vh;
+  background: #e0e0e0;
+  margin: 40px 0 0 0;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  grid-column: span 12;
+}
+
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-carousel {
+  display: flex;
+  height: 100%;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  transition: transform 0.1s ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.image-carousel:active {
+  cursor: grabbing;
+}
+
+.image-carousel.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.image-carousel img {
+  display: block;
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.main-heading {
+  display: block;
+  width: 100%;
+  font-size: clamp(40px, 8vw, 100px); /* адаптивный размер вместо переменной */
+  font-family: inherit;
+  font-weight: 350;
+  margin: var(--spacing-desktop) 0;
+  letter-spacing: 0.01em;
+  text-align: left;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  white-space: normal;
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  grid-column: span 12;
+}
+
+
+.grid-info {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* Using the 12-column system directly */
+  gap: 0; /* Remove default gap */
+  margin-bottom: var(--spacing-desktop); /* Use spacing variable */
+  font-size: var(--base-font-size);
+  grid-column: span 12; /* Make grid-info span all 12 columns of the container */
+}
+
+/* Adjusting item placement within the grid-info 12-column grid */
+.grid-info > div:nth-child(1) { grid-column: 1 / span 2; margin-right: 16px; }
+.grid-info > div:nth-child(2) { grid-column: 3 / span 2; margin-right: 16px; }
+.grid-info > div:nth-child(3) { grid-column: 5 / span 2; }
+.grid-info > div:nth-child(4) { grid-column: 9 / span 2; margin-right: 16px; }
+.grid-info > div:nth-child(5) { grid-column: 11 / span 2; text-align: right; }
+
+.grid-info .label {
+  color: #888;
+  margin-bottom: 4px;
+  font-weight: 350;
+  text-align: left; /* Ensure labels are left-aligned by default */
+}
+
+.grid-info .value {
+  font-weight: 350;
+  color: #111;
+  margin-top: 0;
+  text-align: left; /* Ensure values are left-aligned by default */
+}
+
+/* Specific text alignment for the last two blocks */
+.grid-info > div:nth-child(4) .label,
+.grid-info > div:nth-child(4) .value,
+.grid-info > div:nth-child(5) .label,
+.grid-info > div:nth-child(5) .value {
+  text-align: left;
+}
+
+.description {
+  font-size: clamp(16px, 2vw, 34px);
+  margin: var(--spacing-desktop) 0; /* Use spacing variable */
+  padding-top: var(--spacing-desktop);
+  padding-bottom: var(--spacing-desktop);
+  max-width: 50%;
+  line-height: 1.5;
+  font-weight: 350;
+}
+
+.experience-row {
+  display: flex;
+  gap: 120px;
+  margin-bottom: 64px;
+}
+
+.experience-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.experience-number {
+  font-size: clamp(3.125rem, 10vw, 7.5rem);
+  font-weight: 350;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.experience-label {
+  font-size: 18.75px;
+  color: #888;
+  margin-top: 8px;
+  font-weight: 350;
+}
+
+/* FeaturedProjects section styles */
+.projects {
+  margin-top: var(--spacing-desktop);
+}
+
+.projects-title {
+  font-size: 57.5px;
+  font-weight: 350;
+  margin-bottom: var(--spacing-desktop);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* Desktop Grid Layout Styles */
+.projects-grid {
+    display: none; /* Hidden by default, shown on desktop */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust grid columns as needed */
+    gap: 32px; /* Adjust gap as needed */
+    margin-top: var(--spacing-desktop);
+}
+
+/* Card styles - applied to cards in both grid and slider */
+.card { 
+    background: #e0e0e0;
+    border-radius: 12px;
+    padding: 32px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60vh; /* Keep height for now, adjust if needed */
+    min-height: 240px;
+    max-height: 800px;
+    transition: background 0.2s;
+}
+
+.card:hover {
+    background: #f5f5f5;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 350;
+  margin-bottom: 12px;
+  letter-spacing: -0.05em;
+}
+
+.card-desc {
+  font-size: 20px;
+  font-weight: 350;
+  color: #888;
+  margin-top: auto;
+  letter-spacing: -0.05em;
+}
+
+/* Slider styles - kept for adaptive */
+.slider-container {
+  position: relative;
+  overflow: hidden; /* Hide overflowing items */
+  display: none; /* Hidden by default, shown on adaptive */
+}
+
+.slider-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  /* gap: 32px; */ /* Gap will be handled by margin-right on slider-item */
+}
+
+.slider-item {
+  flex: 0 0 auto; /* Prevent shrinking and allow basis based on content */
+  width: 350px; /* Adjust slide width as needed */
+  margin-right: 32px; /* Space between slides */
+  /* Existing card styles are applied via the .card class */
+}
+
+.slider-item:last-child {
+    margin-right: 0; /* No margin on the last item */
+}
+
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px; /* Adjust padding */
+  pointer-events: none; /* Allow clicks to pass through controls area */
+}
+
+.slider-controls button {
+  background: #fff; /* White background */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 50%;
+  width: 40px; /* Button size */
+  height: 40px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333; /* Dark text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto; /* Enable clicks on buttons */
+  transition: background-color 0.3s ease;
+}
+
+.slider-controls button:hover {
+  background-color: #eee; /* Light gray on hover */
+}
+
+/* Media Queries to control display of grid vs slider */
+@media (max-width: 1200px) {
+  .projects-grid {
+      display: none;
+  }
+  .slider-container {
+      display: block;
+  }
+  .slider-item {
+      width: 80%;
+      margin-right: 20px;
+  }
+  .slider-controls {
+      padding: 0 10px;
+  }
+  .slider-controls button {
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+  }
+}
+
+/* Отдельный блок для main-heading и projects-title */
+@media (max-width: 768px) {
+  .main-heading {
+      font-size: clamp(32px, 8vw, 60px);
+      margin: var(--spacing-mobile) 0;
+  }
+
+  .projects-title {
+      font-size: clamp(28px, 6vw, 48px);
+      margin-top: var(--spacing-mobile);
+  }
+}
+
+    
+
+    
+
+
+@media (min-width: 1201px) { /* Show grid and hide slider on desktop */
+    .projects-grid {
+        display: grid !important; /* Use !important to override default hidden state */
+    }
+    .slider-container {
+        display: none !important;
+    }
+}
+
+/* Explore,Create,Refine section styles */
+.process {
+  margin-top: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.process-title {
+  font-size: 45px;
+  font-family: 'ABC Favorit Mono', monospace;
+  font-weight: 350;
+  margin-bottom: 0;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  text-align: left;
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+.step-row {
+  display: grid;
+  grid-template-columns: 150px 60px 1fr;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+.step-col {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.step-label {
+  font-size: 13px;
+  color: #888;
+  font-family: 'ABC Favorit Mono', monospace;
+  font-weight: 350;
+  margin-top: 0;
+}
+.step-icon {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+}
+.step-icon img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.step-desc-mono {
+  font-size: 13px;
+  color: #111;
+  font-family: 'ABC Favorit Mono', monospace;
+  font-weight: 350;
+  line-height: 1.4;
+  margin-left: 0;
+  margin-top: 0;
+}
+.step-divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 0;
+  width: 100%;
+}
+
+/* Footer styles */
+footer {
+  background: #111;
+  color: #fff;
+  padding: var(--spacing-desktop) var(--content-padding-desktop);
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 60px;
+}
+
+footer .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+footer .footer img {
+  width: clamp(80px, 8vw, 120px);
+  height: auto;
+}
+
+footer .footer .nav {
+  display: flex;
+  gap: var(--spacing-desktop);
+  flex-wrap: wrap;
+  justify-content: center;
+  width: auto;
+}
+
+footer .footer .nav a {
+  text-decoration: none;
+  color: #fff;
+  font-size: var(--base-font-size);
+  transition: color 0.3s ease;
+}
+
+footer .footer .nav a:hover {
+  color: #888;
+}
+
+/* Media Queries Adjustments */
+@media (max-width: 1920px) {
+  /* Styles for screens up to 1920px */
+  .main-heading {
+    font-size: var(--heading-scale-desktop);
+  }
+}
+
+@media (min-width: 1921px) {
+  :root {
+    --heading-scale: var(--heading-scale-2k);
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 var(--content-padding-tablet);
+    gap: 24px;
+  }
+
+  .container > *:not(:last-child) {
+    margin-bottom: var(--spacing-tablet);
+  }
+
+  .grid-info {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+  /* Reset item placement for smaller screens */
+  .grid-info > div {
+    grid-column: auto !important;
+    text-align: left; /* Reset text alignment on smaller screens */
+    margin-right: 0 !important;
+  }
+    /* Reset specific text alignment on smaller screens */
+  .grid-info > div .label,
+  .grid-info > div .value {
+    text-align: left;
+  }
+
+  .projects {
+    margin-top: var(--spacing-tablet);
+  }
+}
+
+@media (max-width: 900px) {
+  /* Adjust grid info for smaller tablets */
+  .grid-info {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --content-padding: var(--content-padding-mobile);
+    --spacing-unit: 24px;
+    --heading-scale: clamp(30px, 10vw, 50px); /* Adjusted for better fit on mobile */
+  }
+  
+  /* Show burger menu and hide desktop nav on mobile */
+  .burger-menu-toggle {
+    display: block;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+  
+  /* Adjust hero section height on mobile */
+  .hero-rect,
+  .video-container {
+    height: 30vh;
+  }
+
+  .container {
+    gap: 16px;
+  }
+
+  .container > *:not(:last-child) {
+    margin-bottom: var(--spacing-mobile);
+  }
+
+  .grid-info {
+    display: flex !important; /* Change to flexbox for easier stacking */
+    flex-direction: column !important; /* Stack items vertically */
+    gap: 16px; /* Adjust gap between stacked items */
+    margin-bottom: var(--spacing-mobile);
+  }
+  
+  /* Ensure grid items stack and are left-aligned on mobile */
+  .grid-info > div {
+    display: block !important; /* Ensure div behaves as a block */
+    width: 100% !important; /* Ensure div takes full width */
+    text-align: left !important; /* Ensure text is left-aligned */
+    margin: 0 !important; /* Reset margin */
+    padding: 0 !important; /* Reset padding */
+  }
+
+  .grid-info > div .label,
+  .grid-info > div .value {
+    text-align: left !important; /* Ensure text is left-aligned */
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .image-carousel img {
+    height: 100%;
+    width: auto;
+    max-width: 100%; /* Ensure image doesn't overflow container */
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --content-padding: var(--content-padding-mobile);
+    --spacing-unit: 16px;
+    --heading-scale: clamp(25px, 8vw, 40px); /* Adjusted for smaller mobile screens */
+  }
+  
+   /* Adjust hero section height on small mobile */
+  .hero-rect,
+  .video-container {
+    height: 20vh;
+  }
+
+   .container {
+    gap: 8px;
+  }
+
+  .container > *:not(:last-child) {
+    margin-bottom: var(--spacing-mobile-small);
+  }
+
+  .grid-info {
+    display: flex !important; /* Change to flexbox for easier stacking */
+    flex-direction: column !important; /* Stack items vertically */
+    gap: 8px; /* Adjust gap between stacked items */
+    margin-bottom: var(--spacing-mobile-small);
+  }
+  /* Ensure grid items stack and are left-aligned on small mobile */
+  .grid-info > div {
+    display: block !important; /* Ensure div behaves as a block */
+    width: 100% !important; /* Ensure div takes full width */
+    text-align: left !important; /* Ensure text is left-aligned */
+    margin: 0 !important; /* Reset margin */
+    padding: 0 !important; /* Reset padding */
+  }
+
+  .grid-info > div .label,
+  .grid-info > div .value {
+    text-align: left !important; /* Ensure text is left-aligned */
+  }
+
+  .projects {
+    margin-top: var(--spacing-mobile-small);
+  }
+
+  .image-carousel img {
+    height: 100%;
+    width: auto;
+    max-width: 100%; /* Ensure image doesn't overflow container */
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: white; /* Changed to white for mix-blend-mode */
+  pointer-events: none;
+  transition: width 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out, transform 0.1s ease-out;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference; /* Add for color inversion */
+}
+
+/* Стили при наведении на интерактивные элементы */
+body.cursor-hover .custom-cursor {
+  width: 80px; /* Увеличиваем размер до 80px при наведении (40px радиус) */
+  height: 80px; /* Увеличиваем размер до 80px при наведении (40px радиус) */
+  background-color: #888; /* Изменяем цвет при наведении */
+}
+
+/* Стиль для курсора при зажатии кнопки мыши */
+body.cursor-pressed .custom-cursor {
+    width: 20px; /* Уменьшенный размер при зажатии (примерно 1/4 от 80px) */
+    height: 20px; /* Уменьшенный размер при зажатии */
+}
+
+/* Стиль для курсора на темном фоне (добавьте класс dark-background к элементам с темным фоном) */
+/* Этот стиль обеспечивает "негатив" - белый курсор на темном фоне */
+body.dark-background .custom-cursor {
+    background-color: white; /* Keep white for dark background */
+}
+
+/* Комбинация стилей: наведение на темном фоне */
+/* Если курсор находится над интерактивным элементом НА темном фоне */
+body.dark-background.cursor-hover .custom-cursor {
+    background-color: #eee; /* Keep light gray for hover on dark background */
+}
+
+/* Add styles for fade-in/slide-up animation */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

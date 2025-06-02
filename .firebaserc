@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "karbyshev-d5c5b"
+  },
+  "targets": {
+    "karbyshev-d5c5b": {
+      "hosting": {
+        "default": [
+          "nakama.kz"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
