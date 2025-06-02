@@ -302,15 +302,8 @@ body.fade-out {
 }
 
 /* Specific text alignment for the last two blocks */
-.grid-info > div:nth-child(4) .label,
-.grid-info > div:nth-child(4) .value,
-.grid-info > div:nth-child(5) .label,
-.grid-info > div:nth-child(5) .value {
-  text-align: left;
-}
-
 .description {
-  font-size: clamp(16px, 2vw, 34px);
+  font-size: var(--base-font-size);
   margin: var(--spacing-desktop) 0; /* Use spacing variable */
   padding-top: var(--spacing-desktop);
   padding-bottom: var(--spacing-desktop);
